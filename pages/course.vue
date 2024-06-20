@@ -13,13 +13,13 @@
 
     <div class="flex flex-row justify-center flex-grow">
       <div
-        class="prose mr-4 p-8 bg-white rounded-md min-w-[20ch] flex flex-col"
+        class="prose mr-4 p-8 bg-white rounded-md min-w-[30ch] flex flex-col"
       >
         <h3>Chapters</h3>
         <!-- All the lessons for the course listed here -->
       </div>
 
-      <div class="prose p-12 bg-white rounded-md w-[65ch]">
+      <div class="prose p-12 bg-white rounded-md w-[70ch]">
         <NuxtPage />
       </div>
     </div>
