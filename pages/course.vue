@@ -1,10 +1,11 @@
 <template>
-  <div class="prose mb-12">
-    <h1>
+  <div class="mb-4 flex justify-between items-center w-full">
+    <h1 class="text-3xl">
       <span class="font-medium">
         <span class="font-bold">{{ title }}</span>
       </span>
     </h1>
+    <UserCard />
   </div>
 
   <div class="flex flex-row justify-center flex-grow">
