@@ -6,6 +6,7 @@
     <div>
       <button
         class="text-white bg-customGray font-bold py-2 px-4 rounded w-64 flex justify-center items-center gap-x-3"
+        @click="login"
       >
         <GithubIcon /><span>Github</span>
       </button>
@@ -15,4 +16,14 @@
 
 <script setup>
 const { title } = useCourse();
+const supabase = useSupabaseClient();
+
+const login = async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+  });
+  if (error) {
+    console.log(error);
+  }
+};
 </script>
