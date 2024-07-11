@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
@@ -10,7 +10,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     throw new Error("supabaseUrl and supabaseKey are required.");
   }
 
-  const supabase = createClient(supabaseUrl, supabaseKey);
+  const supabase: SupabaseClient = createClient(supabaseUrl, supabaseKey);
 
   // Provide supabase to the app
   nuxtApp.provide("supabase", supabase);
