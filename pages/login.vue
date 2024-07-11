@@ -21,9 +21,6 @@ const { title } = useCourse();
 //const supabase = useSupabaseClient();
 const { supabase } = useSupabase();
 const login = async () => {
-  console.log(supabase);
-  console.log("hello");
-
   const { user, session, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
   });
@@ -33,12 +30,5 @@ const login = async () => {
     console.log("User:", user);
     console.log("Session:", session);
   }
-  // console.log(supabase);
-  // const { error } = await supabase.auth.signInWithOAuth({
-  //   provider: "github",
-  // });
-  // if (error) {
-  //   console.log(error);
-  // }
 };
 </script>
