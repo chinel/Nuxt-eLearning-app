@@ -6,14 +6,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   const supabaseUrl = config.public.supabaseUrl;
   const supabaseKey = config.public.supabaseKey;
 
-  console.log("Runtime config", config); // Log the runtime config
-
   if (!supabaseUrl || !supabaseKey) {
     throw new Error("supabaseUrl and supabaseKey are required.");
   }
-
-  console.log("supabaseUrl", supabaseUrl); // Log the supabaseUrl
-  console.log("supabaseKey", supabaseKey); // Log the supabaseKey
 
   const supabase = createClient(supabaseUrl, supabaseKey);
 
