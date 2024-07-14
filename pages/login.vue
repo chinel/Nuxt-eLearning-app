@@ -16,13 +16,27 @@
 </template>
 
 <script setup>
-const { title } = useCourse();
+const { query } = useRoute();
+const { user } = useAuth();
 
 //const supabase = useSupabaseClient();
 const { supabase } = useSupabase();
+
+//runs immediately
+watchEffect(async () => {
+  if (user.value) {
+    const redirectTo = query.redirectTo || "/";
+
+    window.location.replace("/");
+  }
+});
 const login = async () => {
+  const redirectTo = `${window.location.origin}${query.redirectTo}`;
   const { user, session, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
+    options: {
+      redirectTo,
+    },
   });
   if (error) {
     console.error("Error signing in with GitHub:", error);
