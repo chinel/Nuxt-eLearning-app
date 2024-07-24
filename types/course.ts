@@ -14,7 +14,7 @@ export type Chapter = {
   title: string;
   slug: string;
   number: number;
-  lessons: Lesson[] | LessonWithPath;
+  lessons: Lesson[] | LessonWithPath[];
 };
 
 export type Course = {
