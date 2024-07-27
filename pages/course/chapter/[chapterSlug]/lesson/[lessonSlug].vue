@@ -34,6 +34,8 @@
 <script setup>
 const course = useCourse();
 const route = useRoute();
+const { chapterSlug, lessonSlug } = route.params;
+const lesson = await useLesson(chapterSlug, lessonSlug);
 
 definePageMeta({
   middleware: [
@@ -79,12 +81,12 @@ const chapter = computed(() => {
 //   });
 // }
 
-const lesson = computed(() => {
-  return chapter.value.lessons.find((lesson) => {
-    console.log(lesson);
-    return lesson.slug === route.params.lessonSlug;
-  });
-});
+// const lesson = computed(() => {
+//   return chapter.value.lessons.find((lesson) => {
+//     console.log(lesson);
+//     return lesson.slug === route.params.lessonSlug;
+//   });
+// });
 
 // if (!lesson.value) {
 //   throw createError({
