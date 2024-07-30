@@ -1,4 +1,14 @@
+import { StorageSerializers } from "@vueuse/core";
+import type { LessonWithPath } from "~/types/course";
 export default async (chapterSlug: string, lessonSlug: string) => {
+  const url = `/api/course/chapter/${chapterSlug}/lesson/${lessonSlug}`;
+
+  //Use session storage to cache the lesson data
+  const lesson = useSessionStorage<LessonWithPath>(url, null, {
+    //By passing null as defaul it can't determine which serializer to use
+    serializer: StorageSerializers.object,
+  });
+
   const { data, error } = useFetch(
     `/api/course/chapter/${chapterSlug}/lesson/${lessonSlug}`
   );
