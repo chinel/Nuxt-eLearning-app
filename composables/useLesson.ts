@@ -9,16 +9,23 @@ export default async (chapterSlug: string, lessonSlug: string) => {
     serializer: StorageSerializers.object,
   });
 
-  const { data, error } = useFetch(
-    `/api/course/chapter/${chapterSlug}/lesson/${lessonSlug}`
-  );
+  if (!lesson.value) {
+    const { data, error } = useFetch(
+      `/api/course/chapter/${chapterSlug}/lesson/${lessonSlug}`
+    );
 
-  if (error.value) {
-    throw createError({
-      ...error.value,
-      statusMessage: `Could not fetch Lesson ${lessonSlug} in chapter ${chapterSlug}`,
-    });
+    if (error.value) {
+      throw createError({
+        ...error.value,
+        statusMessage: `Could not fetch Lesson ${lessonSlug} in chapter ${chapterSlug}`,
+      });
+    }
+    lesson.value = data.value;
+  } else {
+    console.log(
+      `Getting Lesson ${lessonSlug} in chapter ${chapterSlug} from cache.`
+    );
   }
 
-  return data;
+  return lesson;
 };
