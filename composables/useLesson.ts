@@ -10,9 +10,7 @@ export default async (chapterSlug: string, lessonSlug: string) => {
   });
 
   if (!lesson.value) {
-    const { data, error } = useFetch(
-      `/api/course/chapter/${chapterSlug}/lesson/${lessonSlug}`
-    );
+    const { data, error } = await useFetch<LessonWithPath>(url);
 
     if (error.value) {
       throw createError({
