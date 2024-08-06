@@ -1,7 +1,7 @@
 import type { LessonWithPath } from "~/types/course";
 import useFetchWithCache from "./useFetchWithCache";
 export default async (chapterSlug: string, lessonSlug: string) => {
-  useFetchWithCache<LessonWithPath>(
+  return useFetchWithCache<LessonWithPath>(
     `/api/course/chapter/${chapterSlug}/lesson/${lessonSlug}`
   );
 };
