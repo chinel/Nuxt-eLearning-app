@@ -1,0 +1,38 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "darwin-arm64"]
+    output        = "../node_modules/.prisma/client" // this is used, if you are using pnpm. Because we used the shamefully hoist with pnpm with nuxt3, so then the structure of the node module folder is different from what prisma is expecting
+}
+
+model Course {
+    id        Int      @id @default(autoincrement())
+    title     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Chapter {
+    id        Int      @id @default(autoincrement())
+    title     String
+    slug      String
+    number    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Lesson {
+    id          Int      @id @default(autoincrement())
+    title       String
+    downloadUrl String
+    number      Int
+    videoId     Int
+    text        String
+    sourceUrl   String? //the ? means this field is optional
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
