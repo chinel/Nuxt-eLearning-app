@@ -10,10 +10,11 @@ generator client {
 }
 
 model Course {
-    id        Int      @id @default(autoincrement())
+    id        Int       @id @default(autoincrement())
     title     String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    chapters  Chapter[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 }
 
 model Chapter {
@@ -21,8 +22,11 @@ model Chapter {
     title     String
     slug      String
     number    Int
+    lessons   Lesson[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    Course    Course   @relation(fields: [courseId], references: [id])
+    courseId  Int
 }
 
 model Lesson {
@@ -35,4 +39,6 @@ model Lesson {
     sourceUrl   String? //the ? means this field is optional
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+    Chapter     Chapter  @relation(fields: [chapterId], references: [id])
+    chapterId   Int
 }
