@@ -7,7 +7,7 @@ datasource db {
 generator client {
     provider      = "prisma-client-js"
     binaryTargets = ["native", "darwin-arm64"]
-    output        = "../node_modules/.prisma/client" // this is used, if you are using pnpm. Because we used the shamefully hoist with pnpm with nuxt3, so then the structure of the node module folder is different from what prisma is expecting
+    output        = "client" // this is used, if you are using pnpm. Because we used the shamefully hoist with pnpm with nuxt3, so then the structure of the node module folder is different from what prisma is expecting
 }
 
 model Course {
@@ -37,6 +37,7 @@ model Lesson {
     number      Int
     videoId     Int
     text        String
+    slug        String
     sourceUrl   String? //the ? means this field is optional
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
