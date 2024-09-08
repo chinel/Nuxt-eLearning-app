@@ -1,8 +1,8 @@
 import { PrismaClient } from "~/prisma/client/index.js";
-import course from "~/server/courseData";
-import type { Chapter, Course, LessonWithPath } from "~/types/course";
+// import course from "~/server/courseData";
+import type { LessonWithPath } from "~/types/course";
 
-course as Course;
+// course as Course;
 
 const prisma = new PrismaClient();
 
