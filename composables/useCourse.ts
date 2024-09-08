@@ -1,5 +1,5 @@
-import type { CourseMeta } from "~/types/course";
+import type { courseOutline } from "~/server/api/course/meta.get";
 import useFetchWithCache from "./useFetchWithCache";
 
 export const useCourse = () =>
-  useFetchWithCache<CourseMeta>("/api/course/meta");
+  useFetchWithCache<courseOutline>("/api/course/meta");
