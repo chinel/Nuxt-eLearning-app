@@ -1,4 +1,5 @@
 import { ref, computed } from "vue";
+import Cookies from "js-cookie";
 import { useSupabase } from "./useSupabase";
 import type { User } from "@supabase/supabase-js";
 
@@ -8,6 +9,12 @@ export const useAuth = () => {
 
   supabase.auth.onAuthStateChange((event, session) => {
     user.value = session?.user ?? null;
+    // Store the access_token in a cookie
+    Cookies.set("supabase-access-token", session?.access_token || "", {
+      expires: 1, // The cookie will expire in 1 day
+      // secure: true, // Ensure it's only sent over HTTPS
+      sameSite: "Strict", // Protect against CSRF
+    });
   });
 
   const isAuthenticated = computed(() => user.value !== null);

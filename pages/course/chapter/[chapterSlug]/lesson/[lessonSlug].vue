@@ -74,7 +74,7 @@ const chapter = computed(() => {
   );
 });
 
-console.log("chapter--->", chapter.value);
+// console.log("chapter--->", chapter.value);
 
 // if (!chapter.value) {
 //   throw createError({
