@@ -17,7 +17,7 @@
 
 <script setup>
 const { query } = useRoute();
-const { user } = useAuth();
+const { user } = await useAuth();
 
 //const supabase = useSupabaseClient();
 const { supabase } = useSupabase();
@@ -27,7 +27,8 @@ watchEffect(async () => {
   if (user.value) {
     const redirectTo = query.redirectTo || "/";
 
-    window.location.replace("/");
+    console.log("redirect-->", redirectTo);
+    window.location.replace(redirectTo);
   }
 });
 const login = async () => {
