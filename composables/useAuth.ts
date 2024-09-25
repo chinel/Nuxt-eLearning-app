@@ -3,9 +3,20 @@ import Cookies from "js-cookie";
 import { useSupabase } from "./useSupabase";
 import type { User } from "@supabase/supabase-js";
 
-export const useAuth = () => {
+export const useAuth = async () => {
   const { supabase } = useSupabase();
   const user = ref<User | null>(null);
+  const accessToken = Cookies.get("supabase-access-token");
+  if (accessToken) {
+    const { data, error } = await supabase.auth.getUser(accessToken);
+
+    if (error) {
+      console.error("Error fetching user from access token:", error.message);
+    } else if (data.user) {
+      console.log("User from access token:", data.user);
+      user.value = data.user;
+    }
+  }
 
   supabase.auth.onAuthStateChange((event, session) => {
     user.value = session?.user ?? null;

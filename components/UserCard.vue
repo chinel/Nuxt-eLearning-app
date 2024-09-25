@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-const { user } = useAuth();
+const { user } = await useAuth();
 const { supabase } = useSupabase();
 
 //const user = useSupabaseUser();
