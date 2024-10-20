@@ -21,11 +21,13 @@
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@pinia/nuxt": "^0.5.5",
     "@prisma/client": "^5.18.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/js-cookie": "^3.0.6",
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^10.11.0",
+    "pinia": "^2.2.4",
     "ts-node": "^10.9.2"
   }
 }
