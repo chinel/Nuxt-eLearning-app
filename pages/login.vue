@@ -27,7 +27,7 @@ watchEffect(async () => {
   if (user.value) {
     const redirectTo = query.redirectTo || "/";
 
-    console.log("redirect-->", redirectTo);
+    // console.log("redirect-->", redirectTo);
     window.location.replace(redirectTo);
   }
 });
