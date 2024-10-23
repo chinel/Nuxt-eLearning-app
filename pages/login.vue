@@ -27,7 +27,7 @@ watchEffect(async () => {
   if (user.value) {
     const redirectTo = query.redirectTo || "/";
 
-    console.log("redirect-->", redirectTo);
+    // console.log("redirect-->", redirectTo);
     window.location.replace(redirectTo);
   }
 });
@@ -43,7 +43,7 @@ const login = async () => {
     console.error("Error signing in with GitHub:", error);
   } else {
     console.log("User:", user);
-    console.log("Session:", session);
+    // console.log("Session:", session);
   }
 };
 </script>
