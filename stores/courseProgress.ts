@@ -41,6 +41,15 @@ export const useCourseProgress = defineStore("courseProgress", () => {
         return;
       }
 
+      //Grab chapter and lesson from the route if not provided
+      if (!chapter || !lesson) {
+        const {
+          params: { chapterSlug, lessonSlug },
+        } = useRoute();
+        chapter = chapterSlug as string;
+        lesson = lessonSlug as string;
+      }
+
       //Get the current progress for the lesson
       const currentProgress = progress.value[chapter]?.[lesson];
 
