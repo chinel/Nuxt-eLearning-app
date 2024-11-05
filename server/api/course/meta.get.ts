@@ -10,7 +10,9 @@ const lessonSelect = Prisma.validator<Prisma.LessonDefaultArgs>()({
   },
 });
 
-export type LessonOutline = Prisma.LessonGetPayload<typeof lessonSelect>;
+export type LessonOutline = Prisma.LessonGetPayload<typeof lessonSelect> & {
+  path: string;
+};
 
 const chapterSelect = Prisma.validator<Prisma.ChapterDefaultArgs>()({
   select: {
@@ -21,7 +23,12 @@ const chapterSelect = Prisma.validator<Prisma.ChapterDefaultArgs>()({
   },
 });
 
-export type ChapterOutline = Prisma.ChapterGetPayload<typeof chapterSelect>;
+export type ChapterOutline = Omit<
+  Prisma.ChapterGetPayload<typeof chapterSelect>,
+  "lessons"
+> & {
+  lessons: LessonOutline[];
+};
 
 const courseSelect = Prisma.validator<Prisma.CourseDefaultArgs>()({
   select: {
@@ -30,28 +37,35 @@ const courseSelect = Prisma.validator<Prisma.CourseDefaultArgs>()({
   },
 });
 
-export type courseOutline = Prisma.CourseGetPayload<typeof courseSelect>;
+export type courseOutline = Omit<
+  Prisma.CourseGetPayload<typeof courseSelect>,
+  "chapters"
+> & {
+  chapters: ChapterOutline[];
+};
 
-export default defineEventHandler(async () => {
-  const course = await prisma.course.findFirst(courseSelect);
-  const formattedCourse = course?.chapters.map((item) => {
-    const lessons = item.lessons.map((lesson) => {
-      return {
-        title: lesson.title,
-        slug: lesson.slug,
-        number: lesson.number,
-        path: `/course/chapter/${item.slug}/lesson/${lesson.slug}`,
-      };
+export default defineEventHandler(async (): Promise<courseOutline> => {
+  const outline = await prisma.course.findFirst(courseSelect);
+
+  //Error if there is no course
+  if (!outline) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Course not found",
     });
-    return {
-      title: item.title,
-      slug: item.slug,
-      number: item.number,
-      lessons: lessons,
-    };
-  });
+  }
+
+  //Map the course outline, so that we can add a path to each course
+  const chapters = outline.chapters.map((chapter) => ({
+    ...chapter,
+    lessons: chapter.lessons.map((lesson) => ({
+      ...lesson,
+      path: `/course/chapter/${chapter.slug}/lesson/${lesson.slug}`,
+    })),
+  }));
+
   return {
-    ...course,
-    chapters: formattedCourse,
+    ...outline,
+    chapters,
   };
 });
