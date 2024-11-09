@@ -32,5 +32,5 @@ export default defineEventHandler(async (event) => {
   //   }
 
   // Now you have access to the authenticated user
-  console.log("Authenticated user:", user);
+  // console.log("Authenticated user:", user);
 });
