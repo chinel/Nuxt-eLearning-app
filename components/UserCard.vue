@@ -24,7 +24,7 @@ const profile = computed(() => user.value?.user_metadata.avatar_url);
 const logout = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) {
-    console.log(error);
+    //console.log(error);
     return;
   }
 
