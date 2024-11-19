@@ -85,8 +85,6 @@ const chapter = computed(() => {
   );
 });
 
-// console.log("chapter--->", chapter.value);
-
 // if (!chapter.value) {
 //   throw createError({
 //     statusCode: 404,
