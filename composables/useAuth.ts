@@ -13,7 +13,6 @@ export const useAuth = async () => {
     if (error) {
       console.error("Error fetching user from access token:", error.message);
     } else if (data.user) {
-      // console.log("User from access token:", data.user);
       user.value = data.user;
     }
   }
