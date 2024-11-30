@@ -13,9 +13,7 @@ interface ChapterProgress {
 
 export const useCourseProgress = defineStore("courseProgress", () => {
   //Initialize progress from local storage
-  const progress = useLocalStorage<ChapterProgress>("progress", () => {
-    return {};
-  });
+  const progress = ref<ChapterProgress>({});
 
   const initialized = ref(false);
 
@@ -58,6 +56,28 @@ export const useCourseProgress = defineStore("courseProgress", () => {
         ...progress.value[chapter],
         [lesson]: !currentProgress,
       };
+
+      //Update the database
+      try {
+        await fetch(
+          `/api/course/chapter/${chapter}/lesson/${lesson}/progress`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              completed: !currentProgress,
+            }),
+          }
+        );
+      } catch (error) {
+        //If there's an error, revert the progress in the UI
+        progress.value[chapter] = {
+          ...progress.value[chapter],
+          [lesson]: currentProgress,
+        };
+      }
     }
   };
 
