@@ -49,6 +49,7 @@ export default defineEventHandler(async (event: H3Event) => {
 
   //The update is for update if the record exists or create if it does not exist
   return prisma.lessonProgress.upsert({
+    // upsert for inserting or updating
     where: {
       lessonId_userEmail: {
         lessonId: lesson.id,
