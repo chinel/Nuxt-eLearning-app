@@ -1,5 +1,7 @@
-import { PrismaClient } from "~/prisma/client";
+import { PrismaClient } from "~/prisma/client/index.js";
 import protectedRoute from "~/server/utils/protectRoute";
+import { ChapterOutline, LessonOutline } from "~/server/api/course/meta.get";
+import { CourseProgress, ChapterProgress } from "~/types/course";
 
 const prisma = new PrismaClient();
 
@@ -50,4 +52,31 @@ export default defineEventHandler(async (event) => {
       statusMessage: "Course outline not found",
     });
   }
+
+  // Use the course outline and user progress to create a nested object
+  // with the progress for each lesson
+  const progress = courseOutline.chapters.reduce(
+    (courseProgress: CourseProgress, chapter: ChapterOutline) => {
+      // Collect the progress for each chapter in the course
+      courseProgress[chapter.slug] = chapter.lessons.reduce(
+        (chapterProgress: ChapterProgress, lesson: LessonOutline) => {
+          // Collect the progress for each lesson in the chapter
+          chapterProgress[lesson.slug] =
+            userProgress.find(
+              (progress) =>
+                progress.Lesson.slug === lesson.slug &&
+                progress.Lesson.Chapter.slug === chapter.slug
+            )?.completed || false;
+
+          return chapterProgress;
+        },
+        {}
+      );
+
+      return courseProgress;
+    },
+    {}
+  );
+
+  return progress;
 });
