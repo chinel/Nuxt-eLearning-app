@@ -1,19 +1,16 @@
 import { defineStore } from "pinia";
 import Cookies from "js-cookie";
 import { useSupabase } from "../composables/useSupabase";
+import type { CourseProgress } from "../types/course";
 
 // Define types for progress
 interface LessonProgress {
   [lessonSlug: string]: boolean; // maps lesson slugs to completion status (boolean)
 }
 
-interface ChapterProgress {
-  [chapterSlug: string]: LessonProgress; // maps chapter slugs to lesson progress
-}
-
 export const useCourseProgress = defineStore("courseProgress", () => {
   //Initialize progress from local storage
-  const progress = ref<ChapterProgress>({});
+  const progress = ref<CourseProgress>({});
 
   const initialized = ref(false);
 
@@ -24,6 +21,18 @@ export const useCourseProgress = defineStore("courseProgress", () => {
     initialized.value = true;
 
     //TODO: Fetch user progress from endpoint
+
+    const headers = useRequestHeaders(["cookie"]) as Record<string, string>;
+
+    const { data: userProgress } = await useFetch<CourseProgress>(
+      "/api/user/progress",
+      { headers }
+    );
+
+    // Update progress value
+    if (userProgress.value) {
+      progress.value = userProgress.value;
+    }
   }
 
   //Toggle the progress of a Lesson based on the Chapter slug and Lesson Slug
