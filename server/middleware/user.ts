@@ -30,7 +30,4 @@ export default defineEventHandler(async (event) => {
   //   if (error) {
   //     return { error: "Invalid or expired token" };
   //   }
-
-  // Now you have access to the authenticated user
-  // console.log("Authenticated user:", user);
 });
