@@ -42,7 +42,6 @@ const login = async () => {
     console.error("Error signing in with GitHub:", error);
   } else {
     // console.log("User:", user);
-    // console.log("Session:", session);
   }
 };
 </script>
