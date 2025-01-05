@@ -94,7 +94,6 @@ const chapter = computed(() => {
 
 // const lesson = computed(() => {
 //   return chapter.value.lessons.find((lesson) => {
-//     console.log(lesson);
 //     return lesson.slug === route.params.lessonSlug;
 //   });
 // });
