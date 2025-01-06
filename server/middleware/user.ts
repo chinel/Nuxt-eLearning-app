@@ -10,7 +10,6 @@ const supabase = createClient(
 
 export default defineEventHandler(async (event) => {
   // const cookies = parseCookies(event);
-  // console.log("cookies-->", cookies); // Logs the parsed cookies
 
   // Get the Supabase access token from the cookie
   const accessToken = getCookie(event, "supabase-access-token");
