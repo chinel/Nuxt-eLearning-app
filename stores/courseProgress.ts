@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useSupabase } from "../composables/useSupabase";
 import type { CourseProgress } from "../types/course";
 
+// Define types for progress
 interface LessonProgress {
   [lessonSlug: string]: boolean; // maps lesson slugs to completion status (boolean)
 }
