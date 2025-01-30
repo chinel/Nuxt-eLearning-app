@@ -18,8 +18,6 @@ export default async <T>(url: string) => {
       });
     }
     cached.value = data.value as T;
-  } else {
-    // console.log(`Getting value from cache for ${url}`);
   }
 
   return cached;
