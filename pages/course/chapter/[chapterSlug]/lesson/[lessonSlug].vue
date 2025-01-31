@@ -113,9 +113,9 @@ useHead({
   title,
 });
 
-//const progress = ref();
-
 //Previous logic
+
+//const progress = ref();
 
 // const progress = useLocalStorage("progress", () => {
 //   return [];
